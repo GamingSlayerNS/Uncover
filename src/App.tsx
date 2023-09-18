@@ -5,17 +5,27 @@ import LineStorage from './components/line-storage';
 import CircularShift from './components/circular-shift';
 import Alphabetizer from './components/alphabetizer';
 import Output from './components/output';
+import Sidebar from './components/sidebar';
 
 function App() {
     return (
-        <div className="flex text-center underline pad2">
-            <header className="flex-col gap-4 flex">
-                <h1 className="bg-green-400">Hello_World</h1>
-                <Input text={"Hello"} onClick={() => {}} />
-                <LineStorage text={"Hello"} onClick={() => {}} />
-                <CircularShift text={"Hello"} onClick={() => {}} />
-                <Alphabetizer text={"Hello"} onClick={() => {}} />
-                <Output text={"Hello"} onClick={() => {}} />
+        <div className="bg-gray-600 ml-16 h-screen">
+            <Sidebar />
+            <header className="container m-auto">
+                <div className="flex flex-col justify-start gap-4 m-auto bg-gray-700 px-4 h-screen">
+
+                    <h1 className="text-white text-5xl font-bold tracking-wide">Unravel</h1>
+                    <form className="flex flex-row gap-16 bg-gray-600 rounded px-8 py-6">
+                        <input className="shadow-lg appearance-none border rounded w-full text-gray-500 pl-4" placeholder='Search:' />
+                        <button className="bg-secondary hover:bg-blue-500 text-white font-bold 
+                        py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>Submit</button>
+                    </form>
+                    <Input text={"Hello"} onClick={() => {}} />
+                    <LineStorage text={"Hello"} onClick={() => {}} />
+                    <CircularShift text={"Hello"} onClick={() => {}} />
+                    <Alphabetizer text={"Hello"} onClick={() => {}} />
+                    <Output text={"Hello"} onClick={() => {}} />
+                </div>
             </header>
         </div>
     );

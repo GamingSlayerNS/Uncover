@@ -6,7 +6,7 @@ type Props = {
 }
 
 const Button = ({ onClick, text }: Props) => (
-  <button onClick={onClick} className="bg-green-400">
+  <button className="mx-auto px-2 shadow-lg bg-secondary" onClick={onClick}>
     {text}
   </button>
 )

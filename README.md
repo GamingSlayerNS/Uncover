@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+React-Typescript-Tailwind Guide: https://dev.to/ethand91/creating-a-react-app-with-typescript-tailwind-support-18b8
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
