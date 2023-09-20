@@ -31,8 +31,10 @@ function App() {
                             Submit
                         </button>
                     </form>
-                    <div>
-                        {outputText}
+                    <div className="text-white text-md font-bold">
+                        {outputText.map((sentences, i)=>
+                            <div key={i}>{sentences}</div>
+                        )}
                     </div>
                 </div>
             </header>
