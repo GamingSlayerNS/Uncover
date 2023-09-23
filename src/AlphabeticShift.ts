@@ -1,6 +1,6 @@
 class Alphabetizer {
-    alphabetize(input: string): string[] {
-        let sentences = input.split(". ")
+    alphabetize(input: string[]): string[] {
+        let sentences = input;
         
         return sentences.sort(function (a, b) {
             return a.toLowerCase().localeCompare(b.toLowerCase())
@@ -8,12 +8,8 @@ class Alphabetizer {
     }
 }
 
-class CircularShift {
-    circularShift() {return null}
-}
+// class LineStorage {
+//     storeLine() {return null}
+// }
 
-class LineStorage {
-    storeLine() {return null}
-}
-
-export default Alphabetizer
+export default Alphabetizer;
