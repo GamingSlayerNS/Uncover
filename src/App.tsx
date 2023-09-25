@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 
+import LineStorage from './components/line-storage';
 import CircularShift from './components/CircularShift';
 import Alphabetizer from './AlphabeticShift';
 import Sidebar from './components/sidebar';
 
 function App() {
     const [inputText, setInputText] = useState('');
+    const [shiftedText, setShiftedText] = useState(['']);
     const [outputText, setOutputText] = useState(['']);
 
     var input = document.getElementById("input");
@@ -35,11 +37,19 @@ function App() {
                             className="bg-secondary hover:bg-blue-500 text-white font-bold
                                 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             onClick={() => {
+                                const lineStorage = new LineStorage();
                                 const circularShift = new CircularShift();
                                 const alphabetizer = new Alphabetizer();
+                                setShiftedText(
+                                    circularShift.circularShift(
+                                        lineStorage.lineStorage(inputText)
+                                    )
+                                );
                                 setOutputText(
                                     alphabetizer.alphabetize(
-                                        circularShift.circularShift(inputText)
+                                        circularShift.circularShift(
+                                            lineStorage.lineStorage(inputText)
+                                        )
                                     )
                                 );
                             }}
@@ -47,6 +57,13 @@ function App() {
                             Submit
                         </button>
                     </form>
+                    <h2 className="text-white text-2xl font-bold">Shifted Lines</h2>
+                    <div className="text-white text-md font-bold">
+                        {shiftedText.map((sentences, i)=>
+                            <div key={i}>{sentences}</div>
+                        )}
+                    </div>
+                    <h2 className="text-white text-2xl font-bold">Output</h2>
                     <div className="text-white text-md font-bold">
                         {outputText.map((sentences, i)=>
                             <div key={i}>{sentences}</div>
