@@ -8,8 +8,4 @@ class Alphabetizer {
     }
 }
 
-// class LineStorage {
-//     storeLine() {return null}
-// }
-
 export default Alphabetizer;
