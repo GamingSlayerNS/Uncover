@@ -9,8 +9,8 @@ import Sidebar from './components/sidebar';
 function App() {
     const [inputText, setInputText] = useState('');
     const [shiftedText, setShiftedText] = useState(['']);
-    const [alphabetizedText, setAlphabetizedText] = useState([''])
-    const [outputText, setOutputText] = useState(['']);
+    const [noiseEliminatedText, setNoiseEliminatedText] = useState([''])
+    const [alphabetizedText, setAlphabetizedText] = useState(['']);
     const [inputHist, setInputHist] = useState('')
 
     function handleKeyPress(event: { key: string; preventDefault: () => void; }){
@@ -53,17 +53,17 @@ function App() {
                                     )
                                 );
 
-                                setAlphabetizedText(
-                                    alphabetizer.alphabetize(
+                                setNoiseEliminatedText(
+                                    noiseRemover.removeNoise(
                                         circularShift.circularShift(
                                             lineStorage.lineStorage(updatedHist)
                                         )
                                     )
                                 );
 
-                                setOutputText(
-                                    noiseRemover.removeNoise(
-                                        alphabetizer.alphabetize(
+                                setAlphabetizedText(
+                                    alphabetizer.alphabetize(
+                                        noiseRemover.removeNoise(
                                             circularShift.circularShift(
                                                 lineStorage.lineStorage(updatedHist)
                                             )
@@ -75,26 +75,32 @@ function App() {
                             Submit
                         </button>
                     </form>
-                    <h2 className="text-white text-2xl font-bold">Shifted Lines:</h2>
-                    <div className="text-white text-md font-bold">
-                        {shiftedText.map((sentences, i)=>
-                            <div key={i}>{sentences}</div>
-                        )}
-                    </div>
-                    <h2 className="text-white text-2xl font-bold">Alphabetized Lines:</h2>
-                    <div className="text-white text-md font-bold">
-                        {alphabetizedText.map((sentences, i)=>
-                            <div key={i}>{sentences}</div>
-                        )}
-                    </div>
-                    <h2 className="text-white text-2xl font-bold">Output:</h2>
-                    <div className="text-white text-md font-bold">
-                        {outputText.map((sentences, i)=>
-                            <div key={i}>{sentences}</div>
-                        )}
-                    </div>
+                    
                     <div>
-                        <h2 className="text-white text-2xl font-bold">Input History:</h2>
+                        <h1 className="text-white text-4xl font-bold mb-4">Output:</h1>
+                        <h2 className="text-white text-2xl font-bold">Shifted Lines:</h2>
+                        <div className="text-white text-md font-bold">
+                            {shiftedText.map((sentences, i)=>
+                                <div key={i}>{sentences}</div>
+                            )}
+                        </div>
+                        <h2 className="text-white text-2xl font-bold mt-2">Noise Eliminated Lines:</h2>
+                        <div className="text-white text-md font-bold">
+                            {noiseEliminatedText.map((sentences, i)=>
+                                <div key={i}>{sentences}</div>
+                            )}
+                        </div>
+                        <h2 className="text-white text-2xl font-bold mt-2">Alphabetized Lines:</h2>
+                        <div className="text-white text-md font-bold">
+                            {alphabetizedText.map((sentences, i)=>
+                                <div key={i}>
+                                    {sentences}
+                                    {/* <div className="text-green-500">{ sentences[i] === inputHist.split('. ').at(inputHist.length - 1) && sentences}</div>
+                                    <div className="text-red-200">{ sentences[i] !== inputHist.split('. ').at(inputHist.length - 1) && sentences}</div> */}
+                                </div>
+                            )}
+                        </div>
+                        <h2 className="text-white text-2xl font-bold mt-2">Input History:</h2>
                         <div className="text-white text-md font-bold">
                             {inputHist.split('. ').map((input, i) => (
                                 <div key={i}>{input}</div>
