@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import HomePage from './homepage';
 import Search from './pages/search';
+import Firestore from './pages/firestore';
 import AdminConsole from './pages/admin-console';
 import NoPage from './pages/error-page';
 
@@ -17,6 +18,7 @@ export default function App() {
                 {/* fix: add index to below path */}
                 <Route path='/' element={<HomePage />}>
                     <Route index path='' element={<Search />} />
+                    <Route  path='firestore' element={<Firestore />} />
                     <Route path='admin-console' element={<AdminConsole />} />
                     <Route path='*' element={<NoPage />} />
                 </Route>

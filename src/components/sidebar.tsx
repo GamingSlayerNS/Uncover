@@ -12,7 +12,9 @@ const SideBar = () => {
             <Link to={``}>
                 <SideBarIcon icon={<FaFire size="28" />} text="Search 💡" />
             </Link>
-            <SideBarIcon icon={<BsFillBarChartFill size="28" />} text="tooltip 💡" />
+            <Link to={`firestore`}>
+                <SideBarIcon icon={<BsFillBarChartFill size="28" />} text="Firestore 💡" />
+            </Link>
             <SideBarIcon icon={<BsFillLightningFill size="28" />} text="tooltip 💡" />
             <Link to={`admin-console`}>
                 <SideBarIcon icon={<RiAdminFill size="28" />} text="Administator Console 💡" />

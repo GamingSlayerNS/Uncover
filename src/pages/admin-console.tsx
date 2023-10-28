@@ -5,7 +5,7 @@ import CircularShift from '../components/CircularShift';
 import Alphabetizer from '../components/AlphabeticShift';
 import NoiseRemover from '../components/NoiseRemover';
 
-export default function NoPage() {
+export default function AdminConsole() {
     const [inputText, setInputText] = useState('');
     const [shiftedText, setShiftedText] = useState(['']);
     const [noiseEliminatedText, setNoiseEliminatedText] = useState([''])
@@ -101,7 +101,6 @@ export default function NoPage() {
                         <div key={i}>{input}</div>
                     ))}
                 </div>
-                {/* <h2 id='database-text' className="text-white text-2xl font-bold mt-2">{ item }</h2> */}
             </div>
 
         </div>

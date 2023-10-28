@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Sidebar from './components/sidebar';
@@ -7,8 +7,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
 
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { Query, doc, getDoc, getFirestore } from 'firebase/firestore';
+// import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
     apiKey: "AIzaSyDsL4c0SzMzr9oHIzqVCwTP3pYNEIyhNnU",
@@ -20,24 +19,9 @@ firebase.initializeApp({
     measurementId: "G-Y1JH4V96GN"
 })
 
-const firestore = firebase.firestore();
+// const firestore = firebase.firestore();
 
-const dbText = document.getElementById('#database-text');
-
-function renderData(doc) {
-    //dbText.innerHTML = doc.data().display_name;
-}
-
-function homepage() {
-    //let dataMsg = callDatabase();
-    let item = "Test";
-    firestore.collection('KWIC').get().then((snapshot) => {
-        snapshot.docs.forEach(doc => {
-            console.log(doc.data().display_name);
-            renderData(doc);
-        })
-    });
-
+export default function Homepage() {
     return (
         <div className="bg-gray-600 ml-16">
             <Sidebar />
@@ -48,6 +32,4 @@ function homepage() {
             </header>
         </div>
     );
-}
-
-export default homepage;
+};
