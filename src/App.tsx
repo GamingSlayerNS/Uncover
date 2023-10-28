@@ -1,10 +1,40 @@
 import React, {useState} from 'react';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/analytics';
+
 import LineStorage from './components/LineStorage';
 import CircularShift from './components/CircularShift';
 import Alphabetizer from './components/AlphabeticShift';
 import NoiseRemover from './components/NoiseRemover';
 import Sidebar from './components/sidebar';
+
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { Query, doc, getDoc, getFirestore } from 'firebase/firestore';
+
+firebase.initializeApp({
+    apiKey: "AIzaSyDsL4c0SzMzr9oHIzqVCwTP3pYNEIyhNnU",
+    authDomain: "uncover-fd469.firebaseapp.com",
+    projectId: "uncover-fd469",
+    storageBucket: "uncover-fd469.appspot.com",
+    messagingSenderId: "94364416372",
+    appId: "1:94364416372:web:efb54fdc229cea90db9421",
+    measurementId: "G-Y1JH4V96GN"
+})
+
+const firestore = firebase.firestore();
+
+interface T {
+    KWIC: String,
+    display_name: String
+}
+
+const dbText = document.getElementById('#database-text');
+
+function renderData(doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) {
+    //dbText.innerHTML = doc.data().display_name;
+}
 
 function App() {
     const [inputText, setInputText] = useState('');
@@ -20,6 +50,14 @@ function App() {
             }
     }
 
+    //let dataMsg = callDatabase();
+    let item = "Test";
+    firestore.collection('KWIC').get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+            console.log(doc.data().display_name);
+            renderData(doc);
+        })
+    });
 
     return (
         <div className="bg-gray-600 ml-16">
@@ -106,6 +144,7 @@ function App() {
                                 <div key={i}>{input}</div>
                             ))}
                         </div>
+                        <h2 id='database-text' className="text-white text-2xl font-bold mt-2">{ item }</h2>
                     </div>
 
                 </div>
