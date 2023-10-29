@@ -42,9 +42,9 @@ export default function Firestore() {
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Database:</h1>
             {data && data.map((data, i) => 
-                <a href={`https://${data.url}`} target='_blank' rel='noreferrer'>
-                    <h1 className="text-white mt-4" key={i}>{data.name}</h1>
-                    <h1>{data.url}</h1>
+                <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
+                    <h1 className="text-white mt-4" key={`name${i}`}>{data.name}</h1>
+                    <h1 key={`url${i}`}>{data.url}</h1>
                 </a>
             )}
             
