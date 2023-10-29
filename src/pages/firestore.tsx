@@ -3,7 +3,6 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-//import { set, ref, getDatabase } from "firebase/database";
 
 import { useState } from 'react';
 
@@ -27,6 +26,9 @@ export default function Firestore() {
         });
 
         console.log("Done");
+        setEntryId('');
+        setNameText('');
+        setUrlText('');
     }
 
     function handleKeyPress(event: any){
@@ -36,21 +38,22 @@ export default function Firestore() {
         }
     }
 
-    // setEntryId("hoyolab");
-    // setNameText("Hoyolab");
-    // setUrlText("https://www.hoyolab.com");
-
     return (
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Database:</h1>
-            {data && data.map((data, i) => <h1 className="text-white mt-4" 
-            key={i}>{data.name}</h1>)}
+            {data && data.map((data, i) => 
+                <a href={`https://${data.url}`} target='_blank' rel='noreferrer'>
+                    <h1 className="text-white mt-4" key={i}>{data.name}</h1>
+                    <h1>{data.url}</h1>
+                </a>
+            )}
             
             <form className="flex flex-col gap-8 bg-gray-600 rounded px-8 py-6 mt-4">
                 <input
                     id='input1'
                     className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
                     placeholder='Add Entry:'
+                    value={entryId}
                     onChange={(e) => {setEntryId(e.target.value)}}
                     onKeyPress= {handleKeyPress}
                 />
@@ -58,6 +61,7 @@ export default function Firestore() {
                     id='input2'
                     className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
                     placeholder='Add Name:'
+                    value={nameText}
                     onChange={(e) => {setNameText(e.target.value)}}
                     onKeyPress= {handleKeyPress}
                 />
@@ -65,6 +69,7 @@ export default function Firestore() {
                     id='input3'
                     className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
                     placeholder='Add Url:'
+                    value={urlText}
                     onChange={(e) => {setUrlText(e.target.value)}}
                     onKeyPress= {handleKeyPress}
                 />

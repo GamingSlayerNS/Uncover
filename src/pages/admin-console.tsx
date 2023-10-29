@@ -27,6 +27,7 @@ export default function AdminConsole() {
                     id='input'
                     className="shadow-lg appearance-none border rounded w-full text-gray-500 pl-4"
                     placeholder='Search:'
+                    value={inputText}
                     onChange={(e) => {setInputText(e.target.value)}}
                     onKeyPress= {handleKeyPress}
                 />
@@ -38,6 +39,7 @@ export default function AdminConsole() {
                     onClick={() => {
                         setInputHist(prevInputHistory => prevInputHistory + inputText)
                         let updatedHist = inputHist + inputText;
+                        setInputText('');
                         const lineStorage = new LineStorage();
                         const circularShift = new CircularShift();
                         const alphabetizer = new Alphabetizer();
