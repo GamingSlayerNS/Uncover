@@ -22,6 +22,7 @@ export default function Firestore() {
 
         await dataRef.add({
             name: nameText,
+            KWIC_ID: entryId,
             url: urlText
         });
 
