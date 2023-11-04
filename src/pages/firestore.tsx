@@ -56,7 +56,7 @@ export default function Firestore() {
                     placeholder='Add Entry:'
                     value={entryId}
                     onChange={(e) => {setEntryId(e.target.value)}}
-                    onKeyPress= {handleKeyPress}
+                    onKeyDown= {handleKeyPress}
                 />
                 <input
                     id='input2'
@@ -64,7 +64,7 @@ export default function Firestore() {
                     placeholder='Add Name:'
                     value={nameText}
                     onChange={(e) => {setNameText(e.target.value)}}
-                    onKeyPress= {handleKeyPress}
+                    onKeyDown= {handleKeyPress}
                 />
                 <input
                     id='input3'
@@ -72,7 +72,7 @@ export default function Firestore() {
                     placeholder='Add Url:'
                     value={urlText}
                     onChange={(e) => {setUrlText(e.target.value)}}
-                    onKeyPress= {handleKeyPress}
+                    onKeyDown= {handleKeyPress}
                 />
                 <button
                     id='submitBtn'

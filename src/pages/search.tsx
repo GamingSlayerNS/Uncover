@@ -11,26 +11,26 @@ export default function Search() {
     }
 
     return (
-        <div>
-            <h1 className="text-white text-5xl font-bold tracking-wide">Uncover</h1>
+        <div className="my-auto mx-auto">
+            <h1 className="text-white text-center text-5xl font-bold tracking-wide">Un<strong className="text-secondary">cover</strong></h1>
             
-            <form className="flex flex-row gap-8 bg-gray-600 rounded px-8 py-6 mt-4">
+            <form className="flex flex-row justify-center bg-gray-600 rounded-full p-4 my-10">
                 <input
                     id='input'
-                    className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
-                    placeholder='Add Entry:'
+                    className="shadow-lg appearance-none border rounded-l-full w-[32rem] h-10 text-gray-500 pl-4"
+                    placeholder='Browse:'
                     value={searchText}
                     onChange={(e) => {setSearchText(e.target.value)}}
-                    onKeyPress= {handleKeyPress}
+                    onKeyDown= {handleKeyPress}
                 />
                 <button
                     id='submitBtn'
                     type='button'
                     className="bg-secondary hover:bg-blue-500 text-white font-bold
-                        py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
                     // onClick={}
                 >
-                    Submit
+                    Search
                 </button>
             </form>
         </div>

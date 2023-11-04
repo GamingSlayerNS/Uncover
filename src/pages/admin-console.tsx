@@ -8,7 +8,7 @@ import NoiseRemover from '../components/NoiseRemover';
 export default function AdminConsole() {
     const [inputText, setInputText] = useState('');
     const [shiftedText, setShiftedText] = useState(['']);
-    const [noiseEliminatedText, setNoiseEliminatedText] = useState([''])
+    const [noiseEliminatedText, setNoiseEliminatedText] = useState(['']);
     const [alphabetizedText, setAlphabetizedText] = useState(['']);
     const [inputHist, setInputHist] = useState('');
 
@@ -22,14 +22,14 @@ export default function AdminConsole() {
     return (
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Uncover</h1>
-            <form className="flex flex-row gap-16 bg-gray-600 rounded px-8 py-6">
+            <form className="flex flex-row gap-16 bg-gray-600 rounded px-8 py-6 mt-4">
                 <input
                     id='input'
                     className="shadow-lg appearance-none border rounded w-full text-gray-500 pl-4"
                     placeholder='Search:'
                     value={inputText}
                     onChange={(e) => {setInputText(e.target.value)}}
-                    onKeyPress= {handleKeyPress}
+                    onKeyDown= {handleKeyPress}
                 />
                 <button
                     id='submitBtn'
@@ -74,7 +74,7 @@ export default function AdminConsole() {
             </form>
             
             <div>
-                <h1 className="text-white text-4xl font-bold mb-4">Output:</h1>
+                <h1 className="text-white text-4xl font-bold mb-4 mt-4">Output:</h1>
                 <h2 className="text-white text-2xl font-bold">Shifted Lines:</h2>
                 <div className="text-white text-md font-bold">
                     {shiftedText.map((sentences, i)=>
