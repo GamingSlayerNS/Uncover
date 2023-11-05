@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
     const [searchText, setSearchText] = useState('');
+    const navigate = useNavigate();
 
     function handleKeyPress(event: any){
         if (event.key === "Enter") {
@@ -28,7 +30,7 @@ export default function Search() {
                     type='button'
                     className="bg-secondary hover:bg-blue-500 text-white font-bold
                         w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
-                    // onClick={}
+                    onClick={() => {navigate('searching')}}
                 >
                     Search
                 </button>

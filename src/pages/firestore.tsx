@@ -2,9 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
 
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-
 import { useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 export default function Firestore() {
     const firestore = firebase.firestore();
@@ -23,7 +22,8 @@ export default function Firestore() {
         await dataRef.add({
             name: nameText,
             KWIC_ID: entryId,
-            url: urlText
+            url: urlText,
+            visits: 0
         });
 
         console.log("Done");
