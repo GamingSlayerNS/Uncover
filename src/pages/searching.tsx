@@ -27,7 +27,11 @@ export default function Search() {
         let url = document.createElement('strong');
         let desc = document.createElement('h1');
 
+        // <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
         li.setAttribute('data-id', doc.id);
+        li.setAttribute('href', `https://${doc.data().url}`);
+        li.setAttribute('target', '_blank');
+        li.setAttribute('rel', 'noreferrer');
         name.textContent = doc.data().name;
         name.classList.add("text-white");
         name.classList.add("text-xl");
