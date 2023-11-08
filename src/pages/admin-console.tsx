@@ -28,7 +28,7 @@ export default function AdminConsole() {
                     className="shadow-lg appearance-none border rounded w-full text-gray-500 pl-4"
                     placeholder='Search:'
                     value={inputText}
-                    onChange={(e) => {setInputText(e.target.value)}}
+                    onChange={(e) => {setInputText(e.target.value.toLowerCase())}}
                     onKeyDown= {handleKeyPress}
                 />
                 <button

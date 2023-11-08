@@ -65,7 +65,7 @@ export default function Search() {
                         text-gray-500 pl-4"
                         placeholder='Browse:'
                         value={searchText}
-                        onChange={(e) => {setSearchText(e.target.value)}}
+                        onChange={(e) => {setSearchText(e.target.value.toLowerCase())}}
                         onKeyDown= {handleKeyPress}
                     />
                     <button
@@ -74,11 +74,19 @@ export default function Search() {
                         className="bg-secondary hover:bg-blue-500 text-white font-bold
                             w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
                         onClick={async () => {
+                            // Reverse searchText for reverse searching
+                            const reverseSearchText = searchText.split("").reverse().join("");
                             const query = dataRef.orderBy('KWIC_ID').startAt(searchText).endAt(searchText + '~') as any;
+                            const revQuery = dataRef.orderBy('KWIC_ID').startAt(reverseSearchText).endAt(reverseSearchText + '~') as any;
                             const searchList = document.querySelector('#search-list');
                             searchList?.replaceChildren();
 
                             await getDocs(query).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+                            await getDocs(revQuery).then(snapshot => {
                                 snapshot.docs.forEach(doc => {
                                     renderSearch(doc);
                                 })

@@ -57,7 +57,7 @@ export default function Firestore() {
                     className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
                     placeholder='Add Entry:'
                     value={entryId}
-                    onChange={(e) => {setEntryId(e.target.value)}}
+                    onChange={(e) => {setEntryId(e.target.value.toLowerCase())}}
                     onKeyDown= {handleKeyPress}
                 />
                 <input
