@@ -5,23 +5,37 @@ import 'firebase/compat/analytics';
 import { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import LineStorage from '../components/LineStorage';
+import CircularShift from '../components/CircularShift';
+
 export default function Firestore() {
     const firestore = firebase.firestore();
     const dataRef = firestore.collection('KWIC');
-    const query = dataRef.limit(10) as any;
+    const query = dataRef.orderBy('name').limit(10) as any;
     const [data] = useCollectionData(query, {idField: 'id'} as any);
 
     const [entryId, setEntryId] = useState('');
+    const [entryIdKWIC, setEntryIdKWIC] = useState(['']);
     const [nameText, setNameText] = useState('');
     const [urlText, setUrlText] = useState('');
 
     const writeEntry = async() => {
         console.log("Adding to database: " + entryId 
             + ", " + nameText + ", " + urlText);
+        console.log(entryIdKWIC);
 
         await dataRef.add({
             name: nameText,
-            KWIC_ID: entryId,
+            KWIC_ID1: entryId,
+            KWIC_ID2: entryIdKWIC[1] ? entryIdKWIC[1] : null,
+            KWIC_ID3: entryIdKWIC[2] ? entryIdKWIC[2] : null,
+            KWIC_ID4: entryIdKWIC[3] ? entryIdKWIC[3] : null,
+            KWIC_ID5: entryIdKWIC[4] ? entryIdKWIC[4] : null,
+            KWIC_ID6: entryIdKWIC[5] ? entryIdKWIC[5] : null,
+            KWIC_ID7: entryIdKWIC[6] ? entryIdKWIC[6] : null,
+            KWIC_ID8: entryIdKWIC[7] ? entryIdKWIC[7] : null,
+            KWIC_ID9: entryIdKWIC[8] ? entryIdKWIC[8] : null,
+            KWIC_ID10: entryIdKWIC[9] ? entryIdKWIC[9] : null,
             url: urlText,
             visits: 0
         });
@@ -46,7 +60,7 @@ export default function Firestore() {
                 <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
                     <h1 className="text-white text-xl mt-4" key={`name${i}`}>{data.name}</h1>
                     <h1 className="text-white text-lg" key={`url${i}`}>
-                        <strong className="text-secondary">{data.url}</strong> | {data.KWIC_ID}
+                        <strong className="text-secondary">{data.url}</strong> | {data.KWIC_ID1}
                     </h1>
                 </a>
             )}
@@ -57,7 +71,16 @@ export default function Firestore() {
                     className="shadow-lg appearance-none border rounded w-full h-10 text-gray-500 pl-4"
                     placeholder='Add Entry:'
                     value={entryId}
-                    onChange={(e) => {setEntryId(e.target.value.toLowerCase())}}
+                    onChange={(e) => {
+                        setEntryId(e.target.value.toLowerCase())
+                        const lineStorage = new LineStorage();
+                        const circularShift = new CircularShift();
+                        setEntryIdKWIC(
+                            circularShift.circularShift(
+                                lineStorage.lineStorage(e.target.value.toLowerCase())
+                            )
+                        );
+                    }}
                     onKeyDown= {handleKeyPress}
                 />
                 <input

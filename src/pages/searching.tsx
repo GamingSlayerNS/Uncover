@@ -3,6 +3,7 @@ import 'firebase/compat/firestore';
 import { getDocs } from 'firebase/firestore';
 
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 import '../styles/search.css';
 
@@ -10,7 +11,9 @@ export default function Search() {
     const firestore = firebase.firestore();
     const dataRef = firestore.collection('KWIC');
 
-    const [searchText, setSearchText] = useState('');
+    const {state} = useLocation();
+    const [searchText, setSearchText] = useState(state.text);
+    
 
     function handleKeyPress(event: any){
         if (event.key === "Enter") {
@@ -40,7 +43,7 @@ export default function Search() {
         url.textContent = doc.data().url;
         url.classList.add("text-lg");
         url.classList.add("text-secondary");
-        desc.textContent = " | " + doc.data().KWIC_ID;
+        desc.textContent = " | " + doc.data().KWIC_ID1;
         desc.classList.add("inline")
         desc.classList.add("text-white");
         desc.classList.add("text-lg");
@@ -75,18 +78,74 @@ export default function Search() {
                             w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
                         onClick={async () => {
                             // Reverse searchText for reverse searching
-                            const reverseSearchText = searchText.split("").reverse().join("");
-                            const query = dataRef.orderBy('KWIC_ID').startAt(searchText).endAt(searchText + '~') as any;
-                            const revQuery = dataRef.orderBy('KWIC_ID').startAt(reverseSearchText).endAt(reverseSearchText + '~') as any;
+                            const query1 = dataRef.orderBy('KWIC_ID1').startAt(searchText).endAt(searchText + '~') as any;
+                            const query2 = dataRef.orderBy('KWIC_ID2').startAt(searchText).endAt(searchText + '~') as any;
+                            const query3 = dataRef.orderBy('KWIC_ID3').startAt(searchText).endAt(searchText + '~') as any;
+                            const query4 = dataRef.orderBy('KWIC_ID4').startAt(searchText).endAt(searchText + '~') as any;
+                            const query5 = dataRef.orderBy('KWIC_ID5').startAt(searchText).endAt(searchText + '~') as any;
+                            const query6 = dataRef.orderBy('KWIC_ID6').startAt(searchText).endAt(searchText + '~') as any;
+                            const query7 = dataRef.orderBy('KWIC_ID7').startAt(searchText).endAt(searchText + '~') as any;
+                            const query8 = dataRef.orderBy('KWIC_ID8').startAt(searchText).endAt(searchText + '~') as any;
+                            const query9 = dataRef.orderBy('KWIC_ID9').startAt(searchText).endAt(searchText + '~') as any;
+                            const query10 = dataRef.orderBy('KWIC_ID10').startAt(searchText).endAt(searchText + '~') as any;
                             const searchList = document.querySelector('#search-list');
                             searchList?.replaceChildren();
 
-                            await getDocs(query).then(snapshot => {
+                            await getDocs(query1).then(snapshot => {
                                 snapshot.docs.forEach(doc => {
                                     renderSearch(doc);
                                 })
                             })
-                            await getDocs(revQuery).then(snapshot => {
+
+                            await getDocs(query2).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query3).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query4).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query5).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query6).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query7).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query8).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query9).then(snapshot => {
+                                snapshot.docs.forEach(doc => {
+                                    renderSearch(doc);
+                                })
+                            })
+
+                            await getDocs(query10).then(snapshot => {
                                 snapshot.docs.forEach(doc => {
                                     renderSearch(doc);
                                 })
