@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { getDocs } from 'firebase/firestore';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 
 import '../styles/search.css';
@@ -13,6 +13,14 @@ export default function Search() {
 
     const {state} = useLocation();
     const [searchText, setSearchText] = useState(state.text);
+    
+    useEffect(() => {
+        document.getElementById("submitBtn")?.click();
+    
+      return () => {
+        
+      }
+    }, [])
     
 
     function handleKeyPress(event: any){

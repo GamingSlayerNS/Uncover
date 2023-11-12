@@ -13,13 +13,13 @@ export default function Search() {
     }
 
     return (
-        <div className="my-auto mx-auto">
+        <div className="my-auto lg:mx-auto">
             <h1 className="text-white text-center text-5xl font-bold tracking-wide">Un<strong className="text-secondary">cover</strong></h1>
             
-            <form className="flex flex-row justify-center bg-gray-600 rounded-full p-4 my-10">
+            <form className="flex flex-col lg:flex-row justify-center items-center lg:items-baseline gap-6 lg:gap-0 lg:bg-gray-600 rounded-full p-4 my-10">
                 <input
                     id='input'
-                    className="shadow-lg appearance-none border rounded-l-full w-[32rem] h-10 text-gray-500 pl-4"
+                    className="shadow-lg appearance-none border rounded-full lg:rounded-r-none w-full lg:w-[32rem] h-10 text-gray-500 pl-4"
                     placeholder='Browse:'
                     value={searchText}
                     onChange={(e) => {setSearchText(e.target.value.toLowerCase())}}
@@ -29,7 +29,7 @@ export default function Search() {
                     id='submitBtn'
                     type='button'
                     className="bg-secondary hover:bg-blue-500 text-white font-bold
-                        w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
+                        w-32 py-2 px-4 rounded-full lg:rounded-l-none focus:outline-none focus:shadow-outline"
                     onClick={() => {navigate('searching', { state: { text: searchText } })}}
                 >
                     Search
