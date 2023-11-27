@@ -7,7 +7,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
 
-// import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
     apiKey: "AIzaSyDsL4c0SzMzr9oHIzqVCwTP3pYNEIyhNnU",
@@ -19,9 +18,7 @@ firebase.initializeApp({
     measurementId: "G-Y1JH4V96GN"
 })
 
-// const firestore = firebase.firestore();
-
-export default function Homepage() {
+export default function Homepage() {    
     return (
         <div className="bg-gray-600 ml-16">
             <Sidebar />

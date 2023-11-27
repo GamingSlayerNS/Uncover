@@ -22,12 +22,14 @@ const SideBar = () => {
                 <SideBarIcon icon={<RiAdminFill size="28" />} text="Administator Console 💡" />
             </Link>
             <Divider />
-            <SideBarIcon icon={<BsGearFill size="28" />} text="Settings 💡" />
+            <Link to={'settings'}>
+                <SideBarIcon icon={<BsGearFill size="28" />} text="Settings 💡" />
+            </Link>
         </div>
     )
 };
 
-const SideBarIcon = ({ icon, text = 'tooltip 💡' } : { icon: JSX.Element, text: string}) => {
+export const SideBarIcon = ({ icon, text = 'tooltip 💡' } : { icon: JSX.Element, text: string}) => {
     return (
         <div className="sidebar-icon group">
             {icon}
