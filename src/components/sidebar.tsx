@@ -13,7 +13,7 @@ const SideBar = () => {
                 <SideBarIcon icon={<FaFire size="28" />} text="Search 💡" />
             </Link>
             <Link to={`trending`}>
-                <SideBarIcon icon={<BsFillLightningFill size="28" />} text="tooltip 💡" />
+                <SideBarIcon icon={<BsFillLightningFill size="28" />} text="Trending 💡" />
             </Link>
             <Link to={`firestore`}>
                 <SideBarIcon icon={<BsFillBarChartFill size="28" />} text="Firestore 💡" />
