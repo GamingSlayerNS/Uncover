@@ -13,14 +13,16 @@ export default function Search() {
 
     const {state} = useLocation();
     const [searchText, setSearchText] = useState(state.text);
+    const [currentPage, setCurrentPage] = useState(1);
+    const resultsPerPage = 5;
+    const [totalPages, setTotalPages] = useState(0); // Add state for totalPages
     
     useEffect(() => {
         document.getElementById("submitBtn")?.click();
-    
       return () => {
         
       }
-    }, [])
+    }, [currentPage])
     
 
     function handleKeyPress(event: any){
@@ -30,7 +32,7 @@ export default function Search() {
         }
     }
 
-    function renderSearch(doc: any) {
+    function renderSearch(doc: any, index: number) {
         const searchList = document.querySelector('#search-list');
 
         let li = document.createElement('a');
@@ -60,8 +62,13 @@ export default function Search() {
         li.appendChild(url);
         li.appendChild(desc);
 
-        searchList?.appendChild(li);
+        /* searchList?.appendChild(li); */
+        const page = Math.ceil((index + 1) / resultsPerPage);
+        if (page === currentPage) {
+            searchList?.appendChild(li);
+        }
     }
+    
 
     return (
         <>
@@ -85,6 +92,22 @@ export default function Search() {
                         className="bg-secondary hover:bg-blue-500 text-white font-bold
                             w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
                         onClick={async () => {
+                            
+                            let totalResults = 0;
+                            for (let i = 1; i <= 10; i++) {
+                                const query = dataRef.orderBy(`KWIC_ID${i}`).startAt(searchText).endAt(searchText + '~') as any;
+                                const snapshot = await getDocs(query);
+                                totalResults += snapshot.docs.length;
+                            }
+                            
+                            // Calculate the total number of pages
+                            const totalPages = Math.ceil(totalResults / resultsPerPage);
+                            setTotalPages(totalPages)
+                            //console.log(totalPages)
+                            
+                            // Display results for the first page
+                            setCurrentPage(currentPage);
+
                             // Reverse searchText for reverse searching
                             const query1 = dataRef.orderBy('KWIC_ID1').startAt(searchText).endAt(searchText + '~') as any;
                             const query2 = dataRef.orderBy('KWIC_ID2').startAt(searchText).endAt(searchText + '~') as any;
@@ -100,62 +123,62 @@ export default function Search() {
                             searchList?.replaceChildren();
 
                             await getDocs(query1).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc,index);
                                 })
                             })
 
                             await getDocs(query2).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc,index);
                                 })
                             })
 
                             await getDocs(query3).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query4).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query5).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query6).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query7).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query8).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query9).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
 
                             await getDocs(query10).then(snapshot => {
-                                snapshot.docs.forEach(doc => {
-                                    renderSearch(doc);
+                                snapshot.docs.forEach((doc,index) => {
+                                    renderSearch(doc, index);
                                 })
                             })
                         }}
@@ -168,8 +191,28 @@ export default function Search() {
             <Divider />
 
             <div id='search-list'></div>
+            
+            {totalPages > 0 && (
+                 <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            )}
         </>
     )
 };
+
+const Pagination = ({ totalPages, currentPage, setCurrentPage }: any) => (
+    <div className="pagination flex justify-end mr-12 space-x-2">
+    {Array.from({ length: totalPages }, (_, i) => (
+      <button
+        id = "pagBtn"
+        key={i}
+        type="button"
+        className={`bg-secondary hover:bg-blue-500 text-white font-bold py-2 px-4 rounded ${currentPage === i + 1 ? "bg-blue-500" : ""}`}
+        onClick={() => setCurrentPage(i + 1)}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+);
 
 const Divider = () => <hr className="sidebar-hr" />
