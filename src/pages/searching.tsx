@@ -68,7 +68,6 @@ export default function Search() {
             searchList?.appendChild(li);
         }
     }
-    
 
     return (
         <>
@@ -200,19 +199,19 @@ export default function Search() {
 };
 
 const Pagination = ({ totalPages, currentPage, setCurrentPage }: any) => (
-    <div className="pagination flex justify-end mr-12 space-x-2">
-    {Array.from({ length: totalPages }, (_, i) => (
-      <button
-        id = "pagBtn"
-        key={i}
-        type="button"
-        className={`bg-secondary hover:bg-blue-500 text-white font-bold py-2 px-4 rounded ${currentPage === i + 1 ? "bg-blue-500" : ""}`}
-        onClick={() => setCurrentPage(i + 1)}
-      >
-        {i + 1}
-      </button>
-    ))}
-  </div>
+    <div className="pagination flex flex-wrap justify-end mr-10 space-x-2 gap-y-2">
+        {Array.from({ length: totalPages }, (_, i) => (
+            <button
+                id = "pagBtn"
+                key={i}
+                type="button"
+                className={`bg-secondary hover:bg-blue-500 text-white font-bold py-2 px-4 w-[50.41px] rounded ${currentPage === i + 1 ? "bg-blue-500" : ""}`}
+                onClick={() => setCurrentPage(i + 1)}
+            >
+                {i + 1}
+            </button>
+        ))}
+    </div>
 );
 
 const Divider = () => <hr className="sidebar-hr" />

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -8,12 +8,15 @@ import Searching from './pages/searching';
 import Trending from './pages/trending';
 import Firestore from './pages/firestore';
 import AdminConsole from './pages/admin-console';
+import Settings from './pages/settings';
 import NoPage from './pages/error-page';
 
 import './styles/index.css';
 import reportWebVitals from './components/miscellaneous/reportWebVitals';
 
 export default function App() {
+    const [mode, setMode] = useState('AND');
+
     return (
         <BrowserRouter>
             <Routes>
@@ -23,6 +26,7 @@ export default function App() {
                     <Route path='trending' element={<Trending />} />
                     <Route path='firestore' element={<Firestore />} />
                     <Route path='admin-console' element={<AdminConsole />} />
+                    <Route path='settings' element={<Settings />} />
                     <Route path='*' element={<NoPage />} />
                 </Route>
 
