@@ -192,7 +192,7 @@ export default function Search() {
 
             <div id='search-list'></div>
             
-            {totalPages > 0 && (
+            {(totalPages > 0 && totalPages<=7) && (
                  <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             )}
         </>
