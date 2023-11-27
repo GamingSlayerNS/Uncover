@@ -1,6 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import Sidebar from './components/sidebar';
 
@@ -19,21 +18,7 @@ firebase.initializeApp({
     measurementId: "G-Y1JH4V96GN"
 })
 
-// const firestore = firebase.firestore();
-
-// type MyContext = {
-//     changeMode: (mode: string) => void;
-// }
-
-// const useMode = () => useOutletContext<MyContext>();
-
-export default function Homepage() {
-    // const [mode, setMode] = useState('AND');
-    // const handleChangeMode = (m: string) => {
-    //     setMode(m);
-    //     console.log(mode);
-    // }
-    
+export default function Homepage() {    
     return (
         <div className="bg-gray-600 ml-16">
             <Sidebar />

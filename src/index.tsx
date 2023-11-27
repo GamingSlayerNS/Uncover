@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -15,8 +15,6 @@ import './styles/index.css';
 import reportWebVitals from './components/miscellaneous/reportWebVitals';
 
 export default function App() {
-    const [mode, setMode] = useState('AND');
-
     return (
         <BrowserRouter>
             <Routes>
