@@ -90,6 +90,7 @@ export default function Search() {
                         type='button'
                         className="bg-secondary hover:bg-blue-500 text-white font-bold
                             w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
+                        // onClick={() => console.log(searchText)}
                         onClick={async () => {
                             
                             let totalResults = 0;
