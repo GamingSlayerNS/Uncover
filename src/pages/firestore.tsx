@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
+import 'firebase/compat/auth';
 
 import { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -52,6 +53,16 @@ export default function Firestore() {
             document.getElementById("submitBtn")?.click();
         }
     }
+    
+    const deleteEntry = async (id: any) => {
+        console.log("Deleting entry with ID: ", id);
+        console.log("Deleting entry with ID: ", dataRef.doc(id))
+        try {
+          console.log("Entry deleted successfully!");
+        } catch (error) {
+          console.error("Error deleting entry: ", error);
+        }
+    };
 
     return (
         <div>
@@ -62,6 +73,10 @@ export default function Firestore() {
                     <h1 className="text-white text-lg" key={`url${i}`}>
                         <strong className="text-secondary">{data.url}</strong> | {data.KWIC_ID1}
                     </h1>
+                    <button className="bg-secondary hover:bg-blue-500 text-white font-bold
+                        py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => console.log(dataRef.id)}>
+                        Delete
+                    </button>
                 </a>
             )}
             

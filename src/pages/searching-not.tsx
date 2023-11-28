@@ -1,7 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-// import { getDocs } from 'firebase/firestore';
-
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 
@@ -42,18 +41,18 @@ export default function Search() {
 
         // <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
         li.setAttribute('data-id', doc.id);
-        li.setAttribute('href', `https://${doc.data().url}`);
+        li.setAttribute('href', `https://${doc.url}`);
         li.setAttribute('target', '_blank');
         li.setAttribute('rel', 'noreferrer');
-        name.textContent = doc.data().name;
+        name.textContent = doc.name;
         name.classList.add("text-white");
         name.classList.add("text-xl");
         name.classList.add("mt-4");
 
-        url.textContent = doc.data().url;
+        url.textContent = doc.url;
         url.classList.add("text-lg");
         url.classList.add("text-secondary");
-        desc.textContent = " | " + doc.data().KWIC_ID1;
+        desc.textContent = " | " + doc.KWIC_ID1;
         desc.classList.add("inline")
         desc.classList.add("text-white");
         desc.classList.add("text-lg");
@@ -93,7 +92,12 @@ export default function Search() {
                             //onClick={() => console.log(searchText)}
                          onClick={async () => {
                             // Reverse searchText for reverse searching
-                            console.log(searchText)
+                            const db = getFirestore();
+                            const colRef = collection(db, "KWIC")
+                            const docSnap = await getDocs(colRef);
+                            const docArray = docSnap.docs.map(doc => doc.data());
+
+                            console.log(docArray.length)
                            // Array to store promises for each query
                             const queryPromises: any[] = [];
                             for (let i = 1; i <= 10; i++) {
@@ -114,20 +118,35 @@ export default function Search() {
                                 // Merge results
                                 querySnapshots.forEach((snapshot: any) => {
                                     snapshot.docs.forEach((doc: any) => {
-                                        if (!mergedDocs.some((existingDoc) => existingDoc.id === doc.id)) {
-                                            mergedDocs.push(doc);
+                                        const existingDocData = doc.data();
+
+                                        // Check if the doc is not already in mergedDocs based on some unique identifier
+                                        if (!mergedDocs.some(existingDoc => existingDoc.id === doc.id)) {
+                                            mergedDocs.push(existingDocData);
                                         }
                                     });
                                 });
-                                console.log("Merged " + mergedDocs.length)
-                                let totalResults = mergedDocs.length;
+                                const mergedDocsArray = mergedDocs.map((doc) => doc);
+
+                                // Compare docArray with mergedDocsArray
+                                const difference = docArray.filter((element) => {
+                                    
+                                    return !mergedDocsArray.some(existingDoc => existingDoc.name === element.name)
+                                });
+
+                                console.log("All Docs:", difference.length);
+                                // difference.forEach(doc => {
+                                //     console.log(doc.data().name);
+                                // });
+                                //console.log("Merged " + mergedDocs.length)
+                                let totalResults = difference.length;
                                 const totalPages = Math.ceil(totalResults / resultsPerPage);
                                 setTotalPages(totalPages);
                                 setCurrentPage(currentPage);
-                                // Render the merged results
-                                mergedDocs.forEach((doc: any, index: number) => {
-                                    renderSearch(doc, index);
-                                });
+                                // // Render the merged results
+                                 difference.forEach((doc: any, index: number) => {
+                                     renderSearch(doc, index);
+                                 });
                             })
                             .catch((error: any) => {
                                 console.error('Error fetching data:', error);
@@ -143,7 +162,7 @@ export default function Search() {
 
             <div id='search-list'></div>
             
-            {(totalPages > 0 && totalPages<=10) && (
+            {(totalPages > 0 && totalPages<=100) && (
                  <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             )}
         </>
