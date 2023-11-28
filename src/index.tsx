@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './homepage';
 import Search from './pages/search';
 import Searching from './pages/searching';
+import SearchingOR from './pages/searching-or';
+import SearchingNOT from './pages/searching-not';
 import Trending from './pages/trending';
 import Firestore from './pages/firestore';
 import AdminConsole from './pages/admin-console';
@@ -21,6 +23,8 @@ export default function App() {
                 <Route path='/' element={<HomePage />}>
                     <Route index path='' element={<Search />} />
                     <Route path='searching' element={<Searching />} />
+                    <Route path='searching-or' element={<SearchingOR />} />
+                    <Route path='searching-not' element={<SearchingNOT />} />
                     <Route path='trending' element={<Trending />} />
                     <Route path='firestore' element={<Firestore />} />
                     <Route path='admin-console' element={<AdminConsole />} />
