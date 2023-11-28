@@ -47,7 +47,7 @@ export default function Settings() {
 
 export const SettingIcon = ({ setting, active, text = 'tooltip 💡' } : { setting: string, active: boolean, text: string}) => {
     return (
-        <div key={`setting-${setting}`} className={`sidebar-icon${active? '-active' : ''} group`}>
+        <div key={`setting-${setting}`} className={`${active? "sidebar-icon-active" : "sidebar-icon"} group`}>
             {setting}
 
             <span key={text} className="setting-tooltip group-hover:scale-100">
