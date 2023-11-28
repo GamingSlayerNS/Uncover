@@ -15,15 +15,14 @@ export default function Settings() {
     const [searchMode, setSearchMode] = useState('');
 
     const changeMode = (m: string) => {
-        console.log(`setting mode as ${m}`)
         setSearchMode(m);
         setDoc(dataRef.doc('mode'), {mode: m});
-        console.log(searchMode);
     }
 
     return (
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Settings:</h1>
+            <h1 className="text-white text-5xl font-bold tracking-wide">current mode: {searchMode}</h1>
             <div className="flex flex-col justify-center m-auto gap-10">
                 {data && (
                     data.map((data: any) => {

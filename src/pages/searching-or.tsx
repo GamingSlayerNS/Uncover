@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { getDocs } from 'firebase/firestore';
+// import { getDocs } from 'firebase/firestore';
 
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
