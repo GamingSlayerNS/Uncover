@@ -62,9 +62,9 @@ export default function Search() {
         li.appendChild(url);
         li.appendChild(desc);
 
-        /* searchList?.appendChild(li); */
-        const page = Math.ceil((index + 1) / resultsPerPage);
-        if (page === currentPage) {
+        /*searchList?.appendChild(li); */
+         const page = Math.ceil((index + 1) / resultsPerPage);
+         if (page === currentPage) {
             searchList?.appendChild(li);
         }
     }
@@ -81,7 +81,7 @@ export default function Search() {
                          w-full lg:w-[32rem]
                         text-gray-500 pl-4"
                         placeholder='Browse:'
-                        value={ searchText.join(" ") }
+                        value={searchText.join(" ") }
                         onChange={(e) => {setSearchText( e.target.value.toLowerCase().split(" ") )}}
                         onKeyDown= {handleKeyPress}
                     />
@@ -90,98 +90,49 @@ export default function Search() {
                         type='button'
                         className="bg-secondary hover:bg-blue-500 text-white font-bold
                             w-32 py-2 px-4 rounded-r-full focus:outline-none focus:shadow-outline"
-                            onClick={() => console.log(`searchText: ${searchText}`)}
-                        // onClick={async () => {
+                            //onClick={() => console.log(searchText)}
+                         onClick={async () => {
+                            // Reverse searchText for reverse searching
+                            console.log(searchText)
+                           // Array to store promises for each query
+                            const queryPromises: any[] = [];
+                            for (let i = 1; i <= 10; i++) {
+                                searchText.forEach((word: string) => {
+                                  const field = `KWIC_ID${i}`;
+                                  const query = dataRef.where(field, '>=', word).where(field, '<=', word + '\uf8ff').get();
+                                  queryPromises.push(query);
+                                });
+                            }
                             
-                        //     let totalResults = 0;
-                        //     for (let i = 1; i <= 10; i++) {
-                        //         const query = dataRef.orderBy(`KWIC_ID${i}`).startAt(searchText).endAt(searchText + '~') as any;
-                        //         const snapshot = await getDocs(query);
-                        //         totalResults += snapshot.docs.length;
-                        //     }
-                            
-                        //     // Calculate the total number of pages
-                        //     const totalPages = Math.ceil(totalResults / resultsPerPage);
-                        //     setTotalPages(totalPages)
-                        //     //console.log(totalPages)
-                            
-                        //     // Display results for the first page
-                        //     setCurrentPage(currentPage);
-
-                        //     // Reverse searchText for reverse searching
-                        //     const query1 = dataRef.orderBy('KWIC_ID1').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query2 = dataRef.orderBy('KWIC_ID2').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query3 = dataRef.orderBy('KWIC_ID3').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query4 = dataRef.orderBy('KWIC_ID4').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query5 = dataRef.orderBy('KWIC_ID5').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query6 = dataRef.orderBy('KWIC_ID6').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query7 = dataRef.orderBy('KWIC_ID7').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query8 = dataRef.orderBy('KWIC_ID8').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query9 = dataRef.orderBy('KWIC_ID9').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const query10 = dataRef.orderBy('KWIC_ID10').startAt(searchText).endAt(searchText + '~') as any;
-                        //     const searchList = document.querySelector('#search-list');
-                        //     searchList?.replaceChildren();
-
-                        //     await getDocs(query1).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc,index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query2).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc,index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query3).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query4).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query5).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query6).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query7).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query8).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query9).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-
-                        //     await getDocs(query10).then(snapshot => {
-                        //         snapshot.docs.forEach((doc,index) => {
-                        //             renderSearch(doc, index);
-                        //         })
-                        //     })
-                        // }}
+                            const searchList = document.querySelector('#search-list');
+                            searchList?.replaceChildren();
+                            // Execute all queries concurrently
+                            Promise.all(queryPromises)
+                            .then((querySnapshots) => {
+                                const mergedDocs: any[] = [];
+                                
+                                // Merge results
+                                querySnapshots.forEach((snapshot: any) => {
+                                    snapshot.docs.forEach((doc: any) => {
+                                        if (!mergedDocs.some((existingDoc) => existingDoc.id === doc.id)) {
+                                            mergedDocs.push(doc);
+                                        }
+                                    });
+                                });
+                                console.log("Merged " + mergedDocs.length)
+                                let totalResults = mergedDocs.length;
+                                const totalPages = Math.ceil(totalResults / resultsPerPage);
+                                setTotalPages(totalPages);
+                                setCurrentPage(currentPage);
+                                // Render the merged results
+                                mergedDocs.forEach((doc: any, index: number) => {
+                                    renderSearch(doc, index);
+                                });
+                            })
+                            .catch((error: any) => {
+                                console.error('Error fetching data:', error);
+                            });
+                        }}
                     >
                         Search
                     </button>
@@ -192,14 +143,14 @@ export default function Search() {
 
             <div id='search-list'></div>
             
-            {(totalPages > 0 && totalPages<=7) && (
+            {(totalPages > 0 && totalPages<=10) && (
                  <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             )}
         </>
     )
 };
 
-const Pagination = ({ totalPages, currentPage, setCurrentPage }: any) => (
+ const Pagination = ({ totalPages, currentPage, setCurrentPage }: any) => (
     <div className="pagination flex flex-wrap justify-end mr-10 space-x-2 gap-y-2">
         {Array.from({ length: totalPages }, (_, i) => (
             <button
@@ -214,5 +165,5 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }: any) => (
         ))}
     </div>
 );
-
+ 
 const Divider = () => <hr className="sidebar-hr" />
