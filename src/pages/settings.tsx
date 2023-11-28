@@ -22,12 +22,12 @@ export default function Settings() {
     return (
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Settings:</h1>
-            <h1 className="text-white text-5xl font-bold tracking-wide">current mode: {searchMode}</h1>
-            <div className="flex flex-col justify-center m-auto gap-10">
+            {data && <h1 className="text-white text-3xl font-bold tracking-wide">current mode-{searchMode}</h1>}
+            <div className="flex flex-col justify-center items-center m-auto gap-10">
                 {data && (
                     data.map((data: any) => {
                         return (
-                        <div key={'div-icon'} className="flex flex-row justify-between items-center gap-0 w-96 m-auto h-screen">
+                        <div key={'div-icon'} className="flex flex-row justify-between gap-0 w-96 m-auto mt-10">
                             <button key={'AND-btn'} onClick={() => changeMode('AND')}>
                                 <SettingIcon key={'AND-icon'} setting="AND" active={data.mode === 'AND'} text="Set search to AND" />
                             </button>
