@@ -12,7 +12,7 @@ import CircularShift from '../components/CircularShift';
 export default function Firestore() {
     const firestore = firebase.firestore();
     const dataRef = firestore.collection('KWIC');
-    const query = dataRef.orderBy('name').limit(10) as any;
+    const query = dataRef.orderBy('name').limit(100) as any;
     const [data] = useCollectionData(query, {idField: 'id'} as any);
 
     const [entryId, setEntryId] = useState('');
@@ -59,46 +59,6 @@ export default function Firestore() {
     return (
         <div>
             <h1 className="text-white text-5xl font-bold tracking-wide">Database:</h1>
-            {data && data.map((data, i) => 
-            <div>
-                    <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
-                        <h1 className="text-white text-xl mt-4" key={`name${i}`}>{data.name}</h1>
-                        <h1 className="text-white text-lg" key={`url${i}`}>
-                            <strong className="text-secondary">{data.url}</strong> | {data.KWIC_ID1}
-                        </h1>
-                    </a>
-                    <div className= "flex flex-wrap justify-end mr-10 space-x-2 gap-y-2">
-                            <button id="deleteBtn" className="bg-secondary hover:bg-blue-500 text-white font-bold
-                                py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                                onClick={() => 
-                                    {
-                                        //const query1 = dataRef.where('name', '==', data.name);
-                                        const isConfirmed = window.confirm('Are you sure you want to delete this document?');
-
-                                        if (isConfirmed) {
-                                            const query = dataRef.where('url', '==', data.url);
-                                            query.get().then(querySnapshot => {
-                                                querySnapshot.forEach(doc => {
-                                                // doc.id is the document ID
-                                                dataRef.doc(doc.id).delete()
-                                                    .then(() => {
-                                                        console.log("Delete successful");
-                                                    })
-                                                    .catch(error => {
-                                                        console.error("Error deleting document: ", error);
-                                                    });
-                                                });
-                                            });
-                                        } else {
-                                        console.log('Deletion canceled.');
-                                        }
-                                    }
-                                }>
-                                Delete
-                            </button>
-                        </div>
-                </div>
-            )}
             
             <form className="flex flex-col gap-8 bg-gray-600 rounded px-8 py-6 mt-4">
                 <input
@@ -144,6 +104,47 @@ export default function Firestore() {
                     Submit
                 </button>
             </form>
+
+            {data && data.map((data, i) => 
+                <div>
+                    <a key={i} href={`https://${data.url}`} target='_blank' rel='noreferrer'>
+                        <h1 className="text-white text-xl mt-4" key={`name${i}`}>{data.name}</h1>
+                        <h1 className="text-white text-lg" key={`url${i}`}>
+                            <strong className="text-secondary">{data.url}</strong> | {data.KWIC_ID1}
+                        </h1>
+                    </a>
+                    <div className= "flex flex-wrap justify-end mr-10 space-x-2 gap-y-2">
+                            <button id="deleteBtn" className="bg-secondary hover:bg-blue-500 text-white font-bold
+                                py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                                onClick={() => 
+                                    {
+                                        //const query1 = dataRef.where('name', '==', data.name);
+                                        const isConfirmed = window.confirm('Are you sure you want to delete this document?');
+
+                                        if (isConfirmed) {
+                                            const query = dataRef.where('url', '==', data.url);
+                                            query.get().then(querySnapshot => {
+                                                querySnapshot.forEach(doc => {
+                                                // doc.id is the document ID
+                                                dataRef.doc(doc.id).delete()
+                                                    .then(() => {
+                                                        console.log("Delete successful");
+                                                    })
+                                                    .catch(error => {
+                                                        console.error("Error deleting document: ", error);
+                                                    });
+                                                });
+                                            });
+                                        } else {
+                                        console.log('Deletion canceled.');
+                                        }
+                                    }
+                                }>
+                                Delete
+                            </button>
+                        </div>
+                </div>
+            )}
         </div>
     )
 }
