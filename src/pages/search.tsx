@@ -54,6 +54,11 @@ export default function Search() {
                 <Autocomplete
                     id='input'
                     className="shadow-lg appearance-none border rounded-full lg:rounded-r-none w-full lg:w-[32rem] h-14 text-gray-500 pl-4 bg-white"
+                    sx={{
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            display: "none",
+                        },
+                    }}
                     freeSolo
                     options={data && data.map((option: any) => option.KWIC_ID1)}
                     onInputChange={handleChange}
